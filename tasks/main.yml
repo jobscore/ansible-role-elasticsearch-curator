@@ -9,6 +9,7 @@
     name: "{{ item }}"
     state: present
   with_items:
+    - cron
     - python
     - python-dev
     - python-pip
@@ -33,7 +34,27 @@
     path: "{{ config_path }}"
     state: directory
     mode: 0755
+- name: Populate config
+  set_fact:
+    config: "{{ {'client': client, 'logging': logging }}}"
+- name: Populate actions
+  set_fact:
+    config_actions: "{{ {'actions': actions }}}"
 - name: Ensure that the config file is updated
   template:
     src: config.yml.j2
     dest: "{{ config_path }}/config.yml"
+- name: Ensure that the action file is updated
+  template:
+    src: actions.yml.j2
+    dest: "{{ config_path }}/actions.yml"
+- name: Get curator path
+  command: which curator
+  register: curator_path
+  changed_when: false
+- name: Ensure that the crontab configuration is in place
+  cron:
+    name: Elasticsearch curator
+    special_time: daily
+    state: present
+    job: "{{curator_path.stdout}} --config {{ config_path }}/config.yml {{ config_path }}/actions.yml"

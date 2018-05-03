@@ -1,9 +1,1 @@
-client:
-{% for k,v in client.items() %}
-  - {{ k }}: {{ v }}
-{% endfor %}
-
-logging:
-{% for k,v in logging.items() %}
-  - {{ k }}: {{ v }}
-{% endfor %}
+{{ config | to_nice_yaml(indent=2) }}
