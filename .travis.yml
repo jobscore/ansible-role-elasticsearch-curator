@@ -9,7 +9,7 @@ install:
   - pip install pipenv
   - pipenv install
 script:
-  - pipenv run molecule test --debug
+  - pipenv run molecule test
 notifications:
   email: false
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
