@@ -1,12 +1,17 @@
----
 sudo: required
 language: python
 services:
-  - docker
+- docker
 before_install:
-  - sudo apt-get -qq update
+- sudo apt-get -qq update
 install:
-  - pip install pipenv
-  - pipenv install -dev
+- pip install pipenv
+- pipenv install -dev
 script:
-  - pipenv run molecule test
+- pipenv run molecule test
+notifications:
+  email: false
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  slack:
+    rooms:
+      secure: ocJcR4J2pDJeQzR4ZH7eQoEKGa4C4Q2RV3sTPEFfPQPxcYUu2KPIkeGxtwdpSDQOwHyD6ZYJt+K3iikrTBk55v9IHXjs+1xDugJYJk3GsgYo+jYbx69J+LHmJaiXbfypmgQorK/XvVBFn9Rl61RJgn6oRh4bQEf1aEgIMupM4V6eznvVONmr6GR8AbX4af47F1rnFB8rkmBmQADfEZIJ+u4dM0KF9IlYo1QrTh13+Z0KM7NoQs6n34qeUt2VtHNCgzFOedkA77BMecpnYuXhVHkAm4fQe4hnSSTTzssKtwJyTDUBP93jPktDBcslztaGZHDvWOGGG6RoixIT9IGGQp8SS2VquD4pK86FZ7nBeLwmpATGQ5HqyLaYNJlCFqWrjgjhW8JvRluj6w9vVNloafeu2xoetRzDtYmmtE47yXcg1VY7bndMKyg1eoSCr5TzvnHmCO+f38EZYt+ePvridLImMX3zNZVOFIN5XspuU8wS/7X0X3s9hJDv7j503mNfpCyo2o/zLod5mYgxjVJHRB/sf0nE1FVZ3rvsj+0r9RoAQIaiPtNNOlDJ0ozvhKx3lnPawbK89aatUKQMg/hDg71fCf0D/gFTcuahcOltK+JNZV5Y9paHVfDYvay+eL2NM6wrPfgEJwrZijgUg/OZjc2yniuxzYzKGbVcBVAaUHg=
