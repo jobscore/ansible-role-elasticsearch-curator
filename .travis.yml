@@ -1,14 +1,15 @@
+--- #travis testing file
 sudo: required
 language: python
 services:
-- docker
+  - docker
 before_install:
-- sudo apt-get -qq update
+  - sudo apt-get -qq update
 install:
-- pip install pipenv
-- pipenv install
+  - pip install pipenv
+  - pipenv install
 script:
-- pipenv run molecule test
+  - pipenv run molecule test
 notifications:
   email: false
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
