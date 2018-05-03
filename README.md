@@ -1,41 +1,80 @@
-Role Name
+Elasticsearch Curator
 =========
 
-A brief description of the role goes here.
+An Ansible role for installing the Elasticsearch curator in a Ubuntu machine
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should
-be mentioned here. For instance, if the role uses the EC2 module, it may be a
-good idea to mention in this section that the boto package is required.
+None
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+You can configure the path for the configuration files with this var:
+```
+config_path: /etc/curator
+```
+
+If you need to authenticate the requests when using AWS ES service you should enable this variable:
+```
+enable_aws_es: false
+```
+
+The client configuration file is defined as per the YAML config file described in Curator [docs](http://www.elastic.co/guide/en/elasticsearch/client/curator/current/configfile.html)
+
+```
+client:
+  hosts: ['localhost']
+  port: 9200
+  url_prefix:
+  use_ssl: false
+  certificate:
+  client_cert:
+  client_key:
+  ssl_no_validate: false
+  http_auth:
+  timeout: 30
+  master_only: false
+
+logging:
+  loglevel: INFO
+  logfile: /var/log/curator.log
+  logformat: json
+  blacklist: ['elasticsearch', 'urllib3']
+```
+
+The actions configuration file is defined as per the YAML config file described in Curator [docs](http://www.elastic.co/guide/en/elasticsearch/client/curator/current/actionfile.html)
+
+```
+actions: []
+```
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables that
-are used from other roles.
+None
 
 Example Playbook
 ----------------
+```
+- hosts: all
+  roles:
+    - role: jobscore.curator
+      actions: []
+      client:
+        hosts: ['localhost']
+        port: 9200
+      logging:
+        loglevel: INFO
+        logfile: /var/log/curator.log
+        logformat: json
+        blacklist: ['elasticsearch', 'urllib3']
 
-Including an example of how to use your role (for instance, with variables
-passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: curator, x: 42 }
 
+```
 License
 -------
 
