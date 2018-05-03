@@ -5,18 +5,14 @@ config_path: /etc/curator
 
 enable_aws_es: false
 
+actions: []
+
 client:
   hosts: ['localhost']
   port: 9200
-  url_prefix:
   use_ssl: false
-  certificate:
-  client_cert:
-  client_key:
   ssl_no_validate: false
-  http_auth:
   timeout: 30
-  master_only: false
 
 logging:
   loglevel: INFO
