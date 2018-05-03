@@ -71,9 +71,6 @@ Example Playbook
         logfile: /var/log/curator.log
         logformat: json
         blacklist: ['elasticsearch', 'urllib3']
-
-
-
 ```
 License
 -------
