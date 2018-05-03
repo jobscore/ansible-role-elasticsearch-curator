@@ -6,7 +6,7 @@ before_install:
 - sudo apt-get -qq update
 install:
 - pip install pipenv
-- pipenv install -dev
+- pipenv install
 script:
 - pipenv run molecule test
 notifications:
