@@ -1,0 +1,39 @@
+---
+# tasks file for curator
+- name: Ensure that the APT cache is updated
+  apt:
+    update_cache: true
+  changed_when: false
+- name: Ensure that the needed packages are installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python
+    - python-dev
+    - python-pip
+- name: Ensure that Curator is present in the right version
+  pip:
+    name: elasticsearch-curator
+    state: present
+    version: "{{ curator_ver }}"
+  when: curator_ver is defined
+- name: Ensure that Curator is present
+  pip:
+    name: elasticsearch-curator
+    state: present
+  when: curator_ver is not defined
+- name: Ensure that AWS request authenticator is present
+  pip:
+    name: requests_aws4auth
+    state: present
+  when: enable_aws_es
+- name: Ensure that the Curator folder is present
+  file:
+    path: "{{ config_path }}"
+    state: directory
+    mode: 0755
+- name: Ensure that the config file is updated
+  template:
+    src: config.yml.j2
+    dest: "{{ config_path }}/config.yml"
