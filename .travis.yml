@@ -1,14 +1,12 @@
 ---
 sudo: required
 language: python
-environment:
-  PIPENV_IGNORE_VIRTUALENVS: 1
 services:
   - docker
 before_install:
   - sudo apt-get -qq update
 install:
   - pip install pipenv
-  - pipenv install --system -dev
+  - pipenv install -dev
 script:
-  - molecule test
+  - pipenv run molecule test
